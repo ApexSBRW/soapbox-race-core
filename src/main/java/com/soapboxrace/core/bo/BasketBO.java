@@ -393,22 +393,29 @@ public class BasketBO {
     }
 
     private boolean canPurchaseProduct(PersonaEntity personaEntity, ProductEntity productEntity, float valueOverride) {
+
         if (productEntity.isEnabled()) {
             // non-premium products are available to all; user must be premium to purchase a premium product
             if (productEntity.isPremium() && !personaEntity.getUser().isPremium()) {
                 return false;
             }
 
-            float price = valueOverride == -1 ? productEntity.getPrice() : valueOverride;
+            // fix for issue #86 (https://github.com/SoapboxRaceWorld/soapbox-race-core/issues/86)
+            // add server-side check for persona driver level
+            if(personaEntity.getLevel() >= productEntity.getLevel())
+            {
+                float price = valueOverride == -1 ? productEntity.getPrice() : valueOverride;
 
-            switch (productEntity.getCurrency()) {
-                case "CASH":
-                    return personaEntity.getCash() >= price;
-                case "_NS":
-                    return personaEntity.getBoost() >= price;
-                default:
-                    throw new EngineException("Invalid currency in product entry: " + productEntity.getCurrency(), EngineExceptionCode.UnspecifiedError, true);
+                switch (productEntity.getCurrency()) {
+                    case "CASH":
+                        return personaEntity.getCash() >= price;
+                    case "_NS":
+                        return personaEntity.getBoost() >= price;
+                    default:
+                        throw new EngineException("Invalid currency in product entry: " + productEntity.getCurrency(), EngineExceptionCode.UnspecifiedError, true);
+                }
             }
+
         }
 
         return false;

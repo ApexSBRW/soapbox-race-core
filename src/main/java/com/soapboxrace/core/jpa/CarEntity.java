@@ -153,6 +153,30 @@ public class CarEntity {
         this.carClassHash = carClassHash;
     }
 
+    public void setCarClassHashFromClassInt(int finalClassInt) {
+        const int CLASSHASH_E = 872416321;
+        const int CLASSHASH_D = 415909161;
+        const int CLASSHASH_C = 1866825865;
+        const int CLASSHASH_B = -406473455;
+        const int CLASSHASH_A = -406473455;
+        const int CLASSHASH_S = -2142411446;
+
+        int carclassHash = CLASSHASH_E;
+        if (finalClassInt >= 250 && finalClassInt < 400) {
+            carclassHash = CLASSHASH_D;
+        } else if (finalClassInt >= 400 && finalClassInt < 500) {
+            carclassHash = CLASSHASH_C;
+        } else if (finalClassInt >= 500 && finalClassInt < 600) {
+            carclassHash = CLASSHASH_B;
+        } else if (finalClassInt >= 600 && finalClassInt < 750) {
+            carclassHash = CLASSHASH_A;
+        } else if (finalClassInt >= 750) {
+            carclassHash = CLASSHASH_S;
+        }
+
+        this.carClassHash = carclassHash;
+    }
+
     public boolean isPreset() {
         return isPreset;
     }

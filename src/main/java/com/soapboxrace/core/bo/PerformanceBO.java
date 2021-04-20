@@ -81,21 +81,7 @@ public class PerformanceBO {
         float finalClass = ((int) finalTopSpeed + (int) finalAccel + (int) finalHandling) / 3f;
         int finalClassInt = (int) finalClass;
 
-        // move to new method
-        int carclassHash = 872416321;
-        if (finalClassInt >= 250 && finalClassInt < 400) {
-            carclassHash = 415909161;
-        } else if (finalClassInt >= 400 && finalClassInt < 500) {
-            carclassHash = 1866825865;
-        } else if (finalClassInt >= 500 && finalClassInt < 600) {
-            carclassHash = -406473455;
-        } else if (finalClassInt >= 600 && finalClassInt < 750) {
-            carclassHash = -405837480;
-        } else if (finalClassInt >= 750) {
-            carclassHash = -2142411446;
-        }
-
-        carEntity.setCarClassHash(carclassHash);
+        carEntity.setCarClassHashFromClassInt(finalClassInt);
         carEntity.setRating(finalClassInt);
     }
 }

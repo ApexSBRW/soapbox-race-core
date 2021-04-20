@@ -8,3 +8,4 @@ project-*.yml
 !project-defaults.yml
 /.thorntail-runner-cache/
 src/main/java/com/soapboxrace/core/bo/BenchmarkingBO.java
+core.iml
